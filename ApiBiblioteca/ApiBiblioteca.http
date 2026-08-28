@@ -1,0 +1,115 @@
+@ApiBiblioteca_HostAddress = http://localhost:5180
+
+### Listar livros
+GET {{ApiBiblioteca_HostAddress}}/api/livros
+Accept: application/json
+
+###
+
+### Cadastrar livro
+POST {{ApiBiblioteca_HostAddress}}/api/livros
+Content-Type: application/json
+
+{
+  "titulo": "O Senhor dos Anéis",
+  "autor": "J.R.R. Tolkien",
+  "isbn": "9788533613379",
+  "anoPublicacao": 1954,
+  "editora": "Martins Fontes"
+}
+
+###
+
+### Tentar cadastrar livro com ISBN duplicado (deve retornar 409 Conflict)
+POST {{ApiBiblioteca_HostAddress}}/api/livros
+Content-Type: application/json
+
+{
+  "titulo": "O Senhor dos Anéis - Cópia",
+  "autor": "J.R.R. Tolkien",
+  "isbn": "9788533613379",
+  "anoPublicacao": 1954,
+  "editora": "Martins Fontes"
+}
+
+###
+
+### Buscar livro por Id (troque o GUID pelo retornado no cadastro)
+GET {{ApiBiblioteca_HostAddress}}/api/livros/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
+###
+
+### Atualizar livro
+PUT {{ApiBiblioteca_HostAddress}}/api/livros/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{
+  "titulo": "O Senhor dos Anéis - Edição Revisada",
+  "autor": "J.R.R. Tolkien",
+  "isbn": "9788533613379",
+  "anoPublicacao": 1954,
+  "editora": "Martins Fontes"
+}
+
+###
+
+### Excluir livro
+DELETE {{ApiBiblioteca_HostAddress}}/api/livros/00000000-0000-0000-0000-000000000000
+
+###
+
+### Listar empréstimos
+GET {{ApiBiblioteca_HostAddress}}/api/emprestimos
+Accept: application/json
+
+###
+
+### Realizar empréstimo
+POST {{ApiBiblioteca_HostAddress}}/api/emprestimos
+Content-Type: application/json
+
+{
+  "livroId": "00000000-0000-0000-0000-000000000000",
+  "nomeUsuario": "Maria Souza"
+}
+
+###
+
+### Tentar emprestar o mesmo livro de novo (deve retornar 409 Conflict - livro indisponível)
+POST {{ApiBiblioteca_HostAddress}}/api/emprestimos
+Content-Type: application/json
+
+{
+  "livroId": "00000000-0000-0000-0000-000000000000",
+  "nomeUsuario": "João Lima"
+}
+
+###
+
+### Emprestar livro com Id inexistente (deve retornar 404 Not Found)
+POST {{ApiBiblioteca_HostAddress}}/api/emprestimos
+Content-Type: application/json
+
+{
+  "livroId": "11111111-1111-1111-1111-111111111111",
+  "nomeUsuario": "João Lima"
+}
+
+###
+
+### Buscar empréstimo por Id
+GET {{ApiBiblioteca_HostAddress}}/api/emprestimos/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
+###
+
+### Registrar devolução
+PUT {{ApiBiblioteca_HostAddress}}/api/emprestimos/00000000-0000-0000-0000-000000000000/devolver
+
+###
+
+### Tentar devolver de novo (deve retornar 409 Conflict - já devolvido)
+PUT {{ApiBiblioteca_HostAddress}}/api/emprestimos/00000000-0000-0000-0000-000000000000/devolver
+
+###
