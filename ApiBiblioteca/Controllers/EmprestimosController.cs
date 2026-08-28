@@ -9,16 +9,16 @@ namespace ApiBiblioteca.Controllers
     [ApiController]
     public class EmprestimosController : ControllerBase
     {
-        private readonly EmprestimoService _emprestimoService;
+        private readonly EmprestimoService _emprestimoService; //Service que contém as regras de negócio de empréstimo.
 
-        public EmprestimosController(EmprestimoService emprestimoService)
+        public EmprestimosController(EmprestimoService emprestimoService) //Injeção de dependência do service no controller
         {
             _emprestimoService = emprestimoService;
-        }
+        } //Liga o controller no service
 
         // GET: api/emprestimos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Emprestimo>>> GetEmprestimos()
+        public async Task<ActionResult<IEnumerable<Emprestimo>>> GetEmprestimos() //Retorna todos os empréstimos
         {
             return Ok(await _emprestimoService.ObterTodosAsync());
         }

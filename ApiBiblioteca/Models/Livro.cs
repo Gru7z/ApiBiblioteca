@@ -16,7 +16,7 @@ namespace ApiBiblioteca.Models
         public string Autor { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "O ISBN é obrigatório.")]
-        [StringLength(20, MinimumLength = 10, ErrorMessage = "O ISBN deve ter entre 10 e 20 caracteres.")]
+        [StringLength(13, MinimumLength = 13, ErrorMessage = "O ISBN deve ter exatamente 13 caracteres.")]
         [RegularExpression(@"^[0-9\-]+$", ErrorMessage = "O ISBN deve conter apenas números e hífens.")]
         public string Isbn { get; set; } = string.Empty;
 
